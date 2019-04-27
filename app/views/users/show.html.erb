@@ -5,6 +5,10 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
+        <% if @user == current_user %>
+          | <%= link_to "退会する", @user, method: :delete,
+                                data: { confirm: "本当に退会してもよろしいでしょうか?" } %>
+        <% end %>
       </h1>
     </section>
   </aside>
