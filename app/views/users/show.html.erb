@@ -12,4 +12,13 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+    <% if @user.images.any? %>
+      <h3>Images (<%= @user.images.count %>)</h3>
+      <ol class="microposts">
+        <%= render @images %>
+      </ol>
+      <%= will_paginate @images %>
+    <% end %>
+  </div>
 </div>

@@ -3,11 +3,13 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   
   def index
-    @users = User.paginate(page: params[:page])
+    @users  = User.paginate(page: params[:page])
+    
   end
   
   def show
     @user = User.find(params[:id])
+    @images = @user.images.paginate(page: params[:page])
   end
   
   def new
@@ -53,19 +55,10 @@ class UsersController < ApplicationController
                                    :password_confirmation)
     end
     
-    # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "ログインしてください"
-        redirect_to login_url
-      end
-    end
-    
     # 正しいユーザーかどうか確認
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(root_url) unless @user == current_user
+      redirect_to(root_url) unless current_user?(@user)
     end
     
 end

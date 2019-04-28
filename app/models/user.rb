@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :images, dependent: :destroy
   attr_accessor :remember_token
   validates :name,  presence: true, length:{ maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -35,5 +36,11 @@ class User < ApplicationRecord
   def authenticated?(remember_token)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+  
+  # 試作feedの定義
+  # 完全な実装は次章の「ユーザーをフォローする」を参照
+  def feed
+    Image.where("user_id = ?", id)
   end
 end
