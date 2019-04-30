@@ -46,10 +46,11 @@ class User < ApplicationRecord
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
   
-  # 試作feedの定義
-  # 完全な実装は次章の「ユーザーをフォローする」を参照
   def feed
-    Image.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE follower_id = :user_id"
+    Image.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
   
   # ユーザーをフォローする
