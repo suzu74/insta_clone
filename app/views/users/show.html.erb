@@ -19,9 +19,13 @@
     <%= render 'follow_form' if logged_in? %>
     <% if @user.images.any? %>
       <h3>Images (<%= @user.images.count %>)</h3>
-      <ol class="microposts">
-        <%= render @images %>
-      </ol>
+      <div class="row">
+          <% @images.each do |image| %>
+            <div class="col-xs-4">
+                <%= image_tag image.picture.url, class: "image" if image.picture? %>
+            </div>
+          <% end %>
+      </div>
       <%= will_paginate @images %>
     <% end %>
   </div>
