@@ -6,7 +6,6 @@ class Image < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
   validates :picture, presence: true
-  
   private
 
     # 画像のサイズをバリデーション

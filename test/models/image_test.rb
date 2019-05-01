@@ -7,7 +7,7 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   test "should be valid" do
-    assert @image.valid?
+    assert_not @image.valid?
   end
 
   test "user id should be present" do
