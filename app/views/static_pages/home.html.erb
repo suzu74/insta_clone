@@ -18,7 +18,9 @@
             <div class="col-xs-4">
               <% if image.picture? %>
                 <h3><%= image.user.name %></h3>
+                <a href="<%= image.id %>">
                 <%= image_tag image.picture.url, class: "image"%>
+                </a>
               <% end %>
             </div>
           <% end %>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  resources :images,        only: [:create, :destroy]
+  get ':id', to: "images#show"
+  resources :images,        only: [:show, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
 end
