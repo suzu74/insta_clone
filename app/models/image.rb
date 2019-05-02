@@ -5,7 +5,7 @@ class Image < ApplicationRecord
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
-  validates :picture, presence: true
+  validates :picture, presence: true, allow_nil: true
   
   def self.search(search) 
     if search
