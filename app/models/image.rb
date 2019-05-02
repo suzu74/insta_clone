@@ -6,6 +6,16 @@ class Image < ApplicationRecord
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
   validates :picture, presence: true
+  
+  def self.search(search) 
+    if search
+      where(['content LIKE ?', "%#{search}%"])
+    else
+      all 
+    end
+  end
+
+  
   private
 
     # 画像のサイズをバリデーション

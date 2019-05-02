@@ -19,6 +19,13 @@
     <%= render 'follow_form' if logged_in? %>
     <% if @user.images.any? %>
       <h3>Images (<%= @user.images.count %>)</h3>
+      <p>投稿の検索</p>
+      <%= form_tag user_path, :method=> 'get' do %>
+        <p>
+          <%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "検索", :name => nil %>
+        </p>
+      <% end %>
       <div class="row">
           <% @images.each do |image| %>
             <div class="col-xs-4">
