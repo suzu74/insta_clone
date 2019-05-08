@@ -15,7 +15,6 @@ class Image < ApplicationRecord
     end
   end
 
-  
   private
 
     # 画像のサイズをバリデーション
