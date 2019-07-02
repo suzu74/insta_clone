@@ -1,0 +1,50 @@
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'shared/user_info' %>
+      </section>
+      <section class="stats">
+        <%= render 'shared/stats' %>
+      </section>
+      <section class="micropost_form">
+        <%= render 'shared/image_form' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <h3>Image Feed</h3>
+      <p>写真の検索</p>
+        <%= form_tag root_path, :method => 'get' do %>
+          <p>
+            <%= text_field_tag :search, params[:search] %>
+            <%= submit_tag "Search", :name => nil %>
+          </p>
+        <% end %> 
+      <div class="row">
+          <% @feed_items.each do |image| %>
+            <div class="col-xs-4">
+              <% if image.picture? %>
+                <h3><%= image.user.name %></h3>
+                <a href="<%= image.id %>">
+                <%= image_tag image.picture.url, class: "image"%>
+                </a>
+              <% end %>
+            </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+<div class="center">
+  <h1>Welcome to the Insta Clone App</h1>
+
+  <h2>
+    This app for people who want to share your favorite pics! 
+  </h2>
+  
+  <p>
+    <%= image_tag "phone.jpg", class: "top-pic" %>
+  </p>
+  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+</div>
+<% end %>

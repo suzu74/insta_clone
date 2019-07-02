@@ -1,0 +1,4 @@
+<div class="container">
+  <%= image_tag @image.picture.url, class: "pic" if @image.picture? %>
+  <p class="txt"><%= @image.content %></p>
+</div>

@@ -1,0 +1,40 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+        <% if @user == current_user %>
+          | <%= link_to "退会する", @user, method: :delete,
+                                data: { confirm: "本当に退会してもよろしいでしょうか?" } %>
+        <% end %>
+      </h1>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+    <%= @user.profile %>
+  </aside>
+  <div class="col-md-8">
+    <%= render 'follow_form' if logged_in? %>
+    <% if @user.images.any? %>
+      <h3>Images (<%= @user.images.count %>)</h3>
+      <p>投稿の検索</p>
+      <%= form_tag user_path, :method=> 'get' do %>
+        <p>
+          <%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "検索", :name => nil %>
+        </p>
+      <% end %>
+      <div class="row">
+          <% @images.each do |image| %>
+            <div class="col-xs-4">
+                <%= image_tag image.picture.url, class: "image" if image.picture? %>
+            </div>
+          <% end %>
+      </div>
+      <%= will_paginate @images %>
+    <% end %>
+  </div>
+</div>
